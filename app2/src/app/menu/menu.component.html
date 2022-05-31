@@ -1,0 +1,52 @@
+<div style="height: 100vh;" > 
+    <mat-toolbar color="primary"  >
+        <div fxFlex="100"  fxLayout="row"  fxLayoutAlign="start center" >
+    
+            <div fxHide.gt-sm  fxLayoutAlign="space-between  center" >
+                <button mat-icon-button (click)="sidenav.toggle()">
+                  <mat-icon>menu</mat-icon>
+                </button>
+                <button  color="primary" routerLink="/home" mat-flat-button >
+                  Saint-Malo
+                </button>
+                <button mat-icon-button color="warn" routerLink="/home"  style="margin-right: 2px;;">
+                  <mat-icon>home</mat-icon>
+                </button>
+              </div>
+    
+    
+            <div fxFlex="60" fxHide.sm fxHide.lt-sm  fxLayoutAlign="start center" fxLayoutGap="5px"  >
+          
+            <button  mat-raised-button color="primary"  routerLink="/actualites" ><mat-icon>chrome_reader_mode</mat-icon>&nbsp;Actualités</button>
+          
+            <button mat-raised-button color="primary"  routerLink="/agenda" ><mat-icon>view_agenda</mat-icon>&nbsp;Agenda</button>
+            <button mat-raised-button color="primary"  routerLink="/maree" ><mat-icon>waves</mat-icon>&nbsp;Marées</button>
+            <button mat-raised-button color="primary"  routerLink="/port" ><mat-icon>directions_boat</mat-icon>&nbsp;Port</button>
+            <button mat-raised-button color="primary"  routerLink="/meteo" ><mat-icon>wb_sunny</mat-icon>&nbsp;Météo</button>
+            <button mat-raised-button color="primary"  routerLink="/webcam" ><mat-icon>linked_camera</mat-icon>&nbsp;Webcam</button>
+            <button mat-raised-button color="primary" ><mat-icon>info</mat-icon>&nbsp;ver: {{version}}</button>
+          
+          </div>
+    
+          </div>
+      
+      </mat-toolbar>
+      <mat-sidenav-container  fxFlexFill  >
+          <mat-sidenav color="primary"  #sidenav  mode="over" opened="false"    >
+            <div fxLayout="column" fxFlex fxLayoutAlign="start start" >
+               
+                <button   mat-button color="primary"  routerLink="/actualites" (click)="sidenav.toggle()" ><mat-icon>chrome_reader_mode</mat-icon>&nbsp;Actualités</button> 
+               
+                <button mat-button color="primary"  routerLink="/agenda" (click)="sidenav.toggle()" ><mat-icon>view_agenda</mat-icon>&nbsp;Agenda</button>
+                <button mat-button color="primary"  routerLink="/maree" (click)="sidenav.toggle()" ><mat-icon>waves</mat-icon>&nbsp;Marées</button>
+                <button mat-button color="primary"  routerLink="/port" (click)="sidenav.toggle()" ><mat-icon>directions_boat</mat-icon>&nbsp;Port</button>
+                <button mat-button color="primary"  routerLink="/meteo"(click)="sidenav.toggle()" ><mat-icon>wb_sunny</mat-icon>&nbsp;Météo</button>
+                <button mat-button color="primary"  routerLink="/webcam" (click)="sidenav.toggle()" ><mat-icon>linked_camera</mat-icon>&nbsp;Webcam</button>
+                <button mat-raised-button color="primary" ><mat-icon>info</mat-icon>&nbsp;ver: {{version}}</button>
+            </div>
+          </mat-sidenav>
+          <mat-sidenav-content fxFlexFill  >
+              <router-outlet></router-outlet>
+          </mat-sidenav-content>
+        </mat-sidenav-container>
+    </div>

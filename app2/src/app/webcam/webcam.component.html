@@ -1,0 +1,7 @@
+
+<router-outlet></router-outlet>
+<div  fxLayout="row wrap" fxLayout.lt-md="column"  fxLayoutAlign.lt-md="center center"    fxLayoutAlign="space-evenly end" fxLayoutGap="10px" class="dwcam"  >
+    <div *ngFor="let item of (datas$ | async)" >
+    <youtube-player [height]="height" [width]="width" videoId="{{item.id}}"></youtube-player>   
+</div>
+</div>

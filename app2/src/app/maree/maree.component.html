@@ -1,0 +1,55 @@
+<div style="margin:0 auto;text-align: center;">
+
+
+
+<mat-button-toggle-group  style="margin-top: 4px;"         name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle value="last" (click)="last()" > <mat-icon>navigate_before</mat-icon></mat-button-toggle>
+    <mat-button-toggle value="today" (click)="init()"  >{{this.getCurrent() | date :'mediumDate' }}</mat-button-toggle>
+    <mat-button-toggle value="next" (click)="next()" > <mat-icon>navigate_next</mat-icon></mat-button-toggle>
+    <mat-button-toggle *ngIf="!ismobile"  value="Maree" (click)="this.currentDate$.next('GD90')"> <mat-icon  matBadge="90"  >waves</mat-icon></mat-button-toggle>
+    <mat-button-toggle *ngIf="!ismobile"   value="Maree" (click)="this.currentDate$.next('GD100')"> <mat-icon matBadgeColor="warn" matBadge="100" >waves</mat-icon></mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <div  *ngIf="ismobile" class="fab-sm"   >
+    <button mat-fab color="accent" aria-label="Grande marée" (click)="this.currentDate$.next('GD90')" >
+      <mat-icon  matBadge="90" >waves</mat-icon>
+    </button>
+    <button mat-fab color="accent" aria-label="Grande marée" (click)="this.currentDate$.next('GD100')" >
+      <mat-icon  matBadge="100" matBadgeColor="warn">waves</mat-icon>
+    </button>
+  </div>
+
+
+
+
+  <mat-list-item *ngFor="let item of datasFiltered$ | async ;let index = index;"  >
+    <div mat-line *ngIf="index === 0 " >&nbsp;</div>
+    <div mat-line *ngIf="index === 0 ">
+    <button mat-raised-button   >Pleine mer</button>&nbsp;
+    <button mat-raised-button color="primary" matBadge="c." matBadgeColor="accent" matBadgePosition="after"  >Basse mer</button>
+   </div>
+
+    <div mat-line>&nbsp;</div>
+    <div mat-line  ><span [ngClass]="(item.pm1?.c <90 )?'sp_primary':'sp_accent'"   > {{item?.day | date:'fullDate' }}</span></div>
+    <div mat-line>&nbsp;</div>
+    <div  mat-line >
+    <button mat-raised-button  *ngIf="item.pm1?.date === '-'" >-</button>
+    <button mat-raised-button  *ngIf="item.pm1?.date !== '-'" >{{item.pm1.date | date:'shortTime'}} ({{item.pm1.h }} m) </button>&nbsp;
+    <button mat-raised-button color="primary" *ngIf="item.bm1.date === '-'" >-</button>
+    <button mat-raised-button *ngIf="item.bm1?.date !== '-'" color="primary"  matBadgeOverlap="true"  matBadge="{{item.pm1.c}}" matBadgePosition="after" matBadgeColor="{{(item.pm1.c >= 95)?'warn':'accent'}}">
+      {{item.bm1.date | date:'shortTime'}} ({{item.bm1.h }} m) </button>
+    </div>
+     <div mat-line>&nbsp;</div>
+     <div  mat-line >
+      <button mat-raised-button  *ngIf="item.pm2.date === '-'" >-</button>
+      <button mat-raised-button  *ngIf="item.pm2.date !== '-'" >{{  item.pm2.date | date:'shortTime'  }} ({{item.pm2.h }} m) </button>&nbsp;
+      <button mat-raised-button color="primary" *ngIf="item.bm2.date === '-'" >-</button>
+      <button mat-raised-button color="primary" *ngIf="item.bm2.date !== '-'" matBadgeOverlap="true"  matBadge="{{item.pm2.c}}" matBadgePosition="after" matBadgeColor="{{(item.pm2.c >= 95)?'warn':'accent'}}">
+        {{  item.bm2.date | date:'shortTime'   }} ({{ item.bm2.h  }} m) </button>
+        </div>
+     
+     
+  </mat-list-item>
+  
+
+</div>

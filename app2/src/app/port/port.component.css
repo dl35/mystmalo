@@ -1,0 +1,15 @@
+.resp-container {
+    margin:0px;
+    padding:0px;
+    overflow:hidden
+}
+
+.resp-iframe {
+    position: absolute;
+    top: 2px;
+    left: 2%;
+    width: 96%;
+    height: 90%;
+    border: 0;
+
+}

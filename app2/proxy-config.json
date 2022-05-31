@@ -1,0 +1,16 @@
+{
+  "/datas/": {
+   
+    "target": "http://denis.lesech.free.fr/stmalo/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/datas": "/datas"
+    }
+  }
+
+
+
+  
+  }

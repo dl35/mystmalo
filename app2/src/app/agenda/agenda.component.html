@@ -1,0 +1,28 @@
+<div class="main-div"  *ngIf="datas$ | async as datas"   >
+    <mat-card  class="actu-card"  >
+        <mat-card-header>
+          <div  mat-card-avatar style="background-image:url('assets/dstmalo.jpg') ; background-size:cover"   ></div>
+          <mat-card-title>{{datas?.feed.title}}</mat-card-title>
+          <mat-card-subtitle>copyright: {{datas?.feed.link}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p>
+                {{datas?.feed.description}}
+              </p>
+        </mat-card-content>
+      </mat-card>
+
+
+<mat-card *ngFor="let item of datas?.items"  class="actu-card"  >
+    <mat-card-header>
+      <div  mat-card-avatar style="background-image:url('assets/dstmalo.jpg') ; background-size:cover"   ></div>
+      <mat-card-title>{{item.title}}</mat-card-title>
+      <mat-card-subtitle>{{item.pubDate | date:'medium' }}</mat-card-subtitle>
+    </mat-card-header>
+    <img  *ngIf="item.img"  mat-card-image src="{{item.img}}"  >
+    <mat-card-content>
+        <div [innerHTML]="item.content"></div> 
+    </mat-card-content>
+  </mat-card>
+
+</div>

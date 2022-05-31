@@ -1,0 +1,37 @@
+.sp_primary {
+color :#2e4996    
+}
+.sp_accent{
+color: #e11d33;
+}
+
+.fab-lg {
+  display: flex;
+  _flex: auto;
+  flex-direction: column;
+  gap: 10px;
+  position: fixed;
+  right: 20%;
+  bottom: 16px;
+  z-index: 100;   
+}
+
+.fab-lg > button {
+  margin: 5px
+}
+
+
+.fab-sm {
+  display: flex;
+  _flex: auto;
+  flex-direction: column;
+  gap: 10px;
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 100;   
+}
+
+.fab-sm > button {
+  margin: 5px
+}

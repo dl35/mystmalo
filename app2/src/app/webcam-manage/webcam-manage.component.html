@@ -1,0 +1,39 @@
+<form *ngIf="fg" [formGroup]="fg" (ngSubmit)="onSubmit()" >
+
+
+  <ng-container formArrayName="params" >
+
+<div *ngFor="let item of fg.controls.params?.value; let i=index;trackBy: trackByFn"  fxLayout="row wrap" fxLayout.lt-md="column"  fxLayoutAlign.lt-md="center center"    fxLayoutAlign="space-evenly end" fxLayoutGap="10px" class="dwcam"  >
+
+  <p>
+    <mat-form-field appearance="outline" >
+      <mat-label>id youtube {{i+1}}</mat-label>
+      <input matInput placeholder="Placeholder"   value="{{item}}"  [formControlName]="i" >
+      <mat-icon matSuffix color="primary" >videocam</mat-icon>
+    </mat-form-field>&nbsp;
+    <mat-icon matSuffix (click)="delete(i)"color="warn" >delete</mat-icon>
+
+  </p>
+
+</div>
+</ng-container>
+<br>
+<div style=" display: flex;justify-content: center;" >
+
+<div *ngIf="!show" >
+<button  *ngIf="fg.valid" type="submit" mat-raised-button color="primary" >Sauve</button>
+&nbsp;&nbsp;&nbsp;
+<button   type="button" mat-raised-button color="primary"  (click)="towebcam()"  >to webcam</button>
+&nbsp;&nbsp;&nbsp;
+<button *ngIf="fg.valid" type="button" mat-raised-button color="primary"  (click)="add()"  >add</button>
+</div>
+
+<div *ngIf="show">
+<button *ngIf="mess.success" type="button" mat-raised-button color="accent"  >{{mess.message}}</button>
+<button *ngIf="!mess.success" type="button" mat-raised-button color="warn"  >{{mess.message}}</button>
+</div>
+</div>
+</form>
+
+
+
