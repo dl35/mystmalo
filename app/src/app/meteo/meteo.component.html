@@ -1,12 +1,21 @@
 
-<div style="margin:0 auto;text-align: center;"  class="wrapper" >
+<div style="margin:0 auto;text-align: center;" >
+ 
 
-  <mat-tab-group mat-align-tabs="center" >
+
+  <div *ngIf="ismobile" class="fab-sm"   >
+    <button mat-fab color="accent" aria-label="next" (click)="next()" >
+      <mat-icon>rotate_right</mat-icon>
+    </button>
+
+  </div>
+
+  <mat-tab-group #tabs mat-align-tabs="center" (selectedIndexChange)="toNext($event)" >
     <mat-tab label="Prévisions"><app-days [previsions]="currentDatas$ | async " ></app-days></mat-tab>
     <mat-tab label="Bulletin"><app-bulletin  [bulletin]="currentBulletin$ | async"  ></app-bulletin> </mat-tab>
     <mat-tab label="Ephémérides"><app-ephemeride  [ephe]="currentEphemeride$ | async"  ></app-ephemeride>
     </mat-tab>
   </mat-tab-group>
- 
+
 
 </div>
