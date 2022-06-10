@@ -1,5 +1,5 @@
 import { WebcamManageComponent } from './webcam-manage/webcam-manage.component';
-import { BrowserModule, HammerModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { BrowserModule} from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -21,11 +21,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { DescPipe } from './pipe/desc.pipe';
 import { DirectionPipe } from './pipe/direction.pipe';
-import { HammerConfig } from './gesture/hammerConfig';
 import { LayoutModule } from '@angular/cdk/layout';
 import { BulletinComponent } from './meteo/bulletin/bulletin.component';
 import { EphemerideComponent } from './meteo/ephemeride/ephemeride.component';
 import { HoursComponent } from './meteo/hours/hours.component';
+import { DaysComponent } from './meteo/days/days.component';
 
 
 
@@ -45,7 +45,8 @@ import { HoursComponent } from './meteo/hours/hours.component';
     DirectionPipe,
     BulletinComponent,
     EphemerideComponent,
-    HoursComponent
+    HoursComponent,
+    DaysComponent
     
   ],
   imports: [
@@ -55,14 +56,13 @@ import { HoursComponent } from './meteo/hours/hours.component';
     MaterialModule,
     LayoutModule,
     BrowserAnimationsModule,
-    HammerModule,
     HttpClientModule,
     FlexLayoutModule,
     YouTubePlayerModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [ {provide: HAMMER_GESTURE_CONFIG,useClass: HammerConfig } ],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

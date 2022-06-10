@@ -1,4 +1,4 @@
-<div style="margin:0 auto;text-align: center;"  >
+<div  *ngIf="ephe" >
     <mat-card style="margin:0 auto;width:85%" >Ephémérides  {{ ephe.properties.ephemeris.sunset_time | date :'EEEE dd LLL' }} </mat-card>
 
     <div mat-line >&nbsp;</div>
@@ -48,7 +48,7 @@
         </table>
  
     </mat-card>
-   
+    <div mat-line >&nbsp;</div>
 
 
 
