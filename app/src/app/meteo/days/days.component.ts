@@ -40,6 +40,7 @@ export class DaysComponent implements OnInit {
   @Input() previsions: RootForecast;
   forecast:Array<Forecast> ;
   modeHours = false;
+  showChart = false;
 
   openDay = '' ;
 
@@ -52,22 +53,22 @@ export class DaysComponent implements OnInit {
 
   showHours( day ) {
 
-
+    this.forecast = [] ;
     let fday = moment( day ).format('yyyy-MM-DD');
     this.modeHours = true ;
     this.openDay = fday ;
-    this.todaysSwipe( fday );
+    this.forecast = this.todaysSwipe( fday );
 
   }
 
   todaysSwipe( day ) {
      
     let today = moment();
-    this.forecast = [] ;
+   
 
  
       let f =  this.previsions.properties.forecast;
-      this.forecast =  f.filter( e => {
+      const v =  f.filter( e => {
         // let ch = e.time.substring(0, 10) ;
      
          let t = moment( e.time  ).utc(true) ;
@@ -77,12 +78,35 @@ export class DaysComponent implements OnInit {
       }
       
       );
+
+      return v;
     
         
 
     
 
   }
+
+  toShowChart(event, day ) {
+    event.stopPropagation();
+    this.forecast = [] ;
+    let fday = moment( day ).format('yyyy-MM-DD');
+    this.forecast =  this.todaysSwipe( fday );
+
+    if( this.forecast )
+    this.showChart = ! this.showChart ;
+
+   
+
+  /*
+    this.modeHours = true ;
+    this.openDay = fday ;
+    this.todaysSwipe( fday );
+*/
+
+  }
+
+
 
 }
 

@@ -19,8 +19,8 @@
               <mat-card-subtitle> 
             
             
-                <button mat-mini-fab  color="warn">{{item?.T_min | number: '1.0-0' }}°</button>&nbsp;
-                <button mat-mini-fab  color="primary">{{item?.T_max | number: '1.0-0' }}°</button>&nbsp;
+                <button mat-mini-fab  color="primary">{{item?.T_min | number: '1.0-0' }}°</button>&nbsp;
+                <button mat-mini-fab  color="warn">{{item?.T_max | number: '1.0-0' }}°</button>&nbsp;
                 &nbsp;&nbsp;
                 <button mat-stroked-button *ngIf="item?.T_sea" color="primary" matBadgeSize="medium" >mer {{item?.T_sea}}° </button>&nbsp;
                 <button mat-stroked-button  color="primary" matBadgeSize="medium" >hu {{item?.relative_humidity_min}} / {{item?.relative_humidity_max}} %</button>&nbsp;
@@ -29,8 +29,20 @@
            
             </mat-card-header>
        
+    
+
+            <mat-card-footer>
+            <button mat-fab  color="primary" aria-label="add"    (click)="toShowChart($event, item.time )" >
+              <mat-icon>add</mat-icon>
+            </button>
+       
+            <app-chart *ngIf="showChart" [forecast]="forecast"   ></app-chart>
+       
+          </mat-card-footer>
+       
         </mat-card>    
      
+      
         
     
     </mat-list-item>   

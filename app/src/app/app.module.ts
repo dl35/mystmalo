@@ -26,6 +26,7 @@ import { BulletinComponent } from './meteo/bulletin/bulletin.component';
 import { EphemerideComponent } from './meteo/ephemeride/ephemeride.component';
 import { HoursComponent } from './meteo/hours/hours.component';
 import { DaysComponent } from './meteo/days/days.component';
+import { ChartComponent } from './meteo/chart/chart.component';
 
 
 
@@ -46,7 +47,8 @@ import { DaysComponent } from './meteo/days/days.component';
     BulletinComponent,
     EphemerideComponent,
     HoursComponent,
-    DaysComponent
+    DaysComponent,
+    ChartComponent
     
   ],
   imports: [
