@@ -8,6 +8,7 @@ import { Forecast } from 'src/app/models/MForecast';
 })
 export class HoursComponent implements OnInit {
 
+  show = false;
 
   @Input() forecast:Array<Forecast> ;
 
@@ -17,6 +18,11 @@ export class HoursComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  showChart(){
+    console.log ( this.show );
+    this.show = ! this.show ;
+  }
 
   toclose() {
     this.close.emit();
