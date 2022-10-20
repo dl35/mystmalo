@@ -1,3 +1,4 @@
+import { AppComponent } from './../../app.component';
 import { AfterContentInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Forecast } from 'src/app/models/MForecast';
 import * as d3 from 'd3';
@@ -111,14 +112,10 @@ export class ChartComponent implements OnInit , AfterContentInit {
     .attr("preserveAspectRatio", "xMinYMin meet")
   //  .classed("chart",true)
 
-    if( this.isMobile ) {
+ /*   if( this.isMobile ) {
      svg.attr('transform', 'rotate(90)')
-     //svg.attr('transform-origin', 'center')
-     //svg.attr('transform-box', 'fill-box')
-    }
-    // translate(500,300)
-   // .classed("svg-content", true);
-    //svg.style("background-color","orange");
+     }
+*/
 
     svg.append("rect")
     .style('fill', 'none')
@@ -142,7 +139,7 @@ export class ChartComponent implements OnInit , AfterContentInit {
 
     
     this.scaleX = this.getScaleX();
-    this.scaleY = this.getScaleY();
+  
     
    
     
@@ -160,13 +157,134 @@ export class ChartComponent implements OnInit , AfterContentInit {
     this.drawLine( svg );
    
     this.posy = this.posy + 50 ;
-    this.drawAxisY( svg , this.scaleY );
-    this.drawAxisX( svg , this.scaleX );
-    this.drawTemperature( svg , this.scaleX , this.scaleY );
+    this.scaleY = this.getScaleY( 125 );
   
+    this.drawAxisY( svg , this.scaleY );
+    this.drawAxisX( svg , this.scaleX , 125 );
+  
+  
+    this.drawTemperature( svg , this.scaleX , this.scaleY );
+    this.posy = this.posy + 250 ;
+
+    this.drawRR( svg );
    
     };
+
+
+    drawRR( svg ) {
+      let delta = 150 ;
+     
+      let s = this.posy + 80;
+      let e = this.posy - 80 
+  
+      var minr = 0 ; //d3.min(this.forecast.map((d) => { return d.rain_1h; }));
+      var maxr = d3.max(this.forecast.map((d) => { return this.getRainValid(d)  }));
+  
+      if( maxr  <= 1 ) {
+        maxr = 1 ;
+      } 
+  
+      var yScale = d3.scaleLinear().domain([minr, maxr]) .range([s  , e  ])
+  
+      /*
+      var minDate = d3.min(this.forecast.map(function(d) { return new Date(d.time); }));
+      var maxDate = d3.max(this.forecast.map(function(d) { return new Date(d.time ); }));
+        */
+    /* let xScale = d3.scaleBand().range([ this.margin , this.width- this.margin ])
+      .domain(d3.extent(this.forecast , (d) => { return ( d.time) } ))
+      .range([ minDate , maxDate  ])*/
+
+      let xScale = d3.scaleTime()
+      // .domain( this.forecast.map( (d) => {   d.time } ))
+      .domain(d3.extent(this.forecast , (d) => {  return new Date( d.time) } ))
+      .range([ this.margin , this.width - this.margin ]);
+
+   
+      const xAxis = d3
+      .axisBottom(xScale)
+  
+      .tickSizeInner(0)
+      .tickSizeOuter(0.5)
+      .tickSize(1)
+      .tickPadding(8)
+     // .ticks(d3.timeHours, 2 ) 
+      .ticks( this.forecast.length) 
+      .tickFormat(d3.timeFormat("%HH"));
+
+
+     
+       
+      svg.append("g")
+        // translation en x 
+        .style('transform', 'translate(' + (this.width- this.margin +15 )  + 'px,  0)')
+        .call( d3.axisRight( yScale) )
+
+      svg.append("g")
+        .attr("transform", "translate(0," + ( s ) + ")")
+        .call( xAxis )
     
+      let barWidth = 10 ;
+    
+
+     let bars = svg.selectAll('.bar')
+      .data(this.forecast)
+      .enter()
+      .append("g");
+
+
+
+    /* svg.selectAll(".bar")
+      .data( this.forecast )
+      //.enter()
+      .join("rect") */
+      bars.append("rect")
+      .style('fill', 'green')
+     // .style("stroke-width", 2)
+     // .style("stroke","black")
+     // .style('font-family', 'Roboto')
+     // .style('font-size', '12px')
+      .attr("x", (d) =>  { return xScale(( new Date(d.time) ) )   ; })
+      .attr("y", (d) => {   return yScale( this.getRainValid(d) ); })
+      .attr("width", barWidth )
+      .attr("height", (d) => { return this.posy +80 - yScale(this.getRainValid(d) ); });
+    
+
+      bars.append("text")
+      .text((d) =>  { 
+          let v = this.getRainValid(d) ;
+          if ( v == 0 )  return "" ; else  return v;
+      })
+      .attr("x", (d) => { return xScale(( new Date(d.time) ) ) +barWidth /2 ; })
+      .attr("y", (d) => { return yScale( this.getRainValid(d) ) - 5 ; })
+      .attr("font-family" , "Roboto")
+      .attr("font-size" , "11px")
+      .attr("font-weight" , "bold")
+      .attr("fill" , "black")
+      .attr("text-anchor", "middle");
+
+
+
+
+
+    }
+
+    
+    getRainValid(d) {
+
+      if( d.rain_1h != undefined ) {
+        return d.rain_1h;
+      } else if ( d.rain_3h != undefined ) {
+        return d.rain_3h;
+      } else if ( d.rain_6h != undefined ) {
+        return d.rain_6h;
+      }else if ( d.rain_12h != undefined ) {
+        return d.rain_12h;
+      } else {
+        return 0;
+      }
+
+    }
+
     drawTemperature( svg , scaleX , scaleY ) {
     
     
@@ -220,7 +338,8 @@ export class ChartComponent implements OnInit , AfterContentInit {
         .data( this.forecast )
         .join("text") // enter append
         .style('fill', '#2b2929')
-        .style('font-family', 'Georgia')
+          // .attr("font-weight" , "bold")
+        .style('font-family', 'Roboto')
         .style('font-size', '12px')
           //.attr("class", "circle-germany")
         .attr("x", d=> scaleX(new Date(d.time)))   // center x passing through your xScale
@@ -240,7 +359,7 @@ export class ChartComponent implements OnInit , AfterContentInit {
           .data( this.forecast )
           .join("text") // enter append
           .style('fill', '#2b2929')
-          .style('font-family', 'Georgia')
+          .style('font-family', 'Roboto')
           .style('font-size', '12px')
             //.attr("class", "circle-germany")
           .attr("x", d=> scaleX(new Date(d.time)))   // center x passing through your xScale
@@ -256,7 +375,11 @@ export class ChartComponent implements OnInit , AfterContentInit {
 
     }
 
-    getScaleY() {
+    getScaleY(  delta ) {
+
+      console.log('posy' ,  this.posy );
+
+
       let scaleY = d3.scaleLinear()
       // .domain(d3.extent( this.forecast,  (d)  =>  { return  d.T  }))
        .domain([ 
@@ -264,7 +387,7 @@ export class ChartComponent implements OnInit , AfterContentInit {
          d3.max(this.forecast,  (d)  =>  { return ( d.T > d.T_windchill ) ? d.T : d.T_windchill   }) 
        ] )
       //.range([580, 450])
-      .range([this.posy+ 350 , this.posy+ 200])
+      .range([this.posy+ delta , this.posy])
       .nice();
 
       return scaleY ;
@@ -297,7 +420,7 @@ export class ChartComponent implements OnInit , AfterContentInit {
 
   }
 
-    drawAxisX(svg, scaleX ) {
+    drawAxisX(svg, scaleX , delta) {
     
     const xAxis = d3
        .axisBottom(scaleX)
@@ -308,7 +431,7 @@ export class ChartComponent implements OnInit , AfterContentInit {
     const xa =svg.append('g')
       .attr('id', 'x-axis')
      // .style('transform', 'translate(0, ' + (this.height  - 20 )  + 'px)')
-      .style('transform', 'translate(0, ' + (this.posy +100)  + 'px)')
+      .style('transform', 'translate(0, ' + (this.posy + delta)  + 'px)')
     
     xa.call(xAxis);
     

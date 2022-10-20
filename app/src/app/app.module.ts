@@ -27,6 +27,7 @@ import { EphemerideComponent } from './meteo/ephemeride/ephemeride.component';
 import { HoursComponent } from './meteo/hours/hours.component';
 import { DaysComponent } from './meteo/days/days.component';
 import { ChartComponent } from './meteo/chart/chart.component';
+import { MoonComponent } from './meteo/moon/moon.component';
 
 
 
@@ -48,7 +49,8 @@ import { ChartComponent } from './meteo/chart/chart.component';
     EphemerideComponent,
     HoursComponent,
     DaysComponent,
-    ChartComponent
+    ChartComponent,
+    MoonComponent
     
   ],
   imports: [

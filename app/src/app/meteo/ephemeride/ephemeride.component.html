@@ -1,4 +1,4 @@
-<div  *ngIf="ephe" >
+<div  *ngIf="ephe" style="margin:0 auto;width:100%"  >
     <mat-card style="margin:0 auto;width:85%" >Ephémérides  {{ ephe.properties.ephemeris.sunset_time | date :'EEEE dd LLL' }} </mat-card>
 
     <div mat-line >&nbsp;</div>
@@ -9,14 +9,14 @@
                 <thead>
                     <tr>
                         <th>Lever</th>
-                        <th>  <img mat-card-sm-image src="assets/pictos/p1j.svg" > </th>
+                        <th><img mat-card-sm-image src="assets/pictos/p1j.svg" ></th>
                         <th>Coucher</th>
                     </tr>
                     </thead>
                 <tbody>
                 <tr>
                     <td>{{ ephe.properties.ephemeris.sunrise_time | date :'HH:mm' }}</td>
-                    <td>{{ ephe.properties.ephemeris.saint }} </td>
+                    <td>{{ ephe.properties.ephemeris.saint }}</td>
                     <td>{{ ephe.properties.ephemeris.sunset_time | date :'HH:mm'}}</td>
                 </tr>
        
@@ -33,14 +33,14 @@
             <thead>
             <tr>
                 <th>Lever</th>
-                <th>  <img mat-card-sm-image src="assets/pictos/p1n.svg" ></th>
+                <th><app-moon [phase]="ephe?.properties.ephemeris.moon_phase"></app-moon></th>
                 <th>Coucher</th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>{{ ephe.properties.ephemeris.moonrise_time | date :'HH:mm'}}</td>
-                <td>{{ ephe.properties.ephemeris.moon_phase_description }}</td>
+                <td>{{ ephe.properties.ephemeris.moon_phase_description }}({{ephe?.properties.ephemeris.moon_phase}})</td>
                 <td>{{ ephe.properties.ephemeris.moonset_time | date :'HH:mm'}}</td>
             </tr>
          

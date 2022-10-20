@@ -1,0 +1,19 @@
+.text2 {
+    font-size:        15px;
+    fill:             #a30a23;
+    text-anchor:      middle;
+}
+
+
+.moonlight {
+    fill:             #ffd54f;
+    shape-rendering:  geometricPrecision;
+    _opacity:          0.7;
+}
+
+
+
+.moonshade {
+    fill:             #263238;
+    opacity:          0.7;
+}
