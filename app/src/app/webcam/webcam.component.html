@@ -3,5 +3,21 @@
 <div  fxLayout="row wrap" fxLayout.lt-md="column"  fxLayoutAlign.lt-md="center center"    fxLayoutAlign="space-evenly end" fxLayoutGap="10px" class="dwcam"  >
     <div *ngFor="let item of (datas$ | async)" >
     <youtube-player [height]="height" [width]="width" videoId="{{item.id}}"></youtube-player>   
-</div>
+    </div>
+
+
+    
+
+        <div id="visor-video" fxLayout="row wrap" fxLayout.lt-md="column"  fxLayoutAlign.lt-md="center center"    fxLayoutAlign="space-evenly end" fxLayoutGap="10px" class="dwcam" >
+
+            <div *ngFor="let u of (skaping$ | async)"  >
+         
+            <iframe [height]="height" [width]="width"  [src]="u" >
+            </iframe>        
+            </div>
+           
+           
+          </div>
+
+
 </div>

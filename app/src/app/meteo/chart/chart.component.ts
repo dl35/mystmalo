@@ -156,44 +156,50 @@ export class ChartComponent implements OnInit , AfterContentInit {
     this.posy = this.posy + 30 ;
     this.drawLine( svg );
    
-    this.posy = this.posy + 50 ;
-    this.scaleY = this.getScaleY( 125 );
+    this.posy = this.posy + 80 ;
+
+    let delta = 125 ;
+
+    this.drawRR( svg , delta);
+
+
+
+    this.scaleY = this.getScaleY( delta );
   
     this.drawAxisY( svg , this.scaleY );
-    this.drawAxisX( svg , this.scaleX , 125 );
+    this.drawAxisX( svg , this.scaleX , delta );
   
   
     this.drawTemperature( svg , this.scaleX , this.scaleY );
-    this.posy = this.posy + 250 ;
+   // this.posy = this.posy + 45 ;
 
-    this.drawRR( svg );
+   
    
     };
 
 
-    drawRR( svg ) {
-      let delta = 150 ;
+    drawRR( svg , delta ) {
+      
      
-      let s = this.posy + 80;
-      let e = this.posy - 80 
+      let s = this.posy + delta  ;
+      let e = this.posy - 0 ;
   
-      var minr = 0 ; //d3.min(this.forecast.map((d) => { return d.rain_1h; }));
+      var minr = 0 ; 
       var maxr = d3.max(this.forecast.map((d) => { return this.getRainValid(d)  }));
   
+
+      if ( maxr == 0 ) {
+        return ;
+      }
+
+
       if( maxr  <= 1 ) {
         maxr = 1 ;
       } 
   
       var yScale = d3.scaleLinear().domain([minr, maxr]) .range([s  , e  ])
   
-      /*
-      var minDate = d3.min(this.forecast.map(function(d) { return new Date(d.time); }));
-      var maxDate = d3.max(this.forecast.map(function(d) { return new Date(d.time ); }));
-        */
-    /* let xScale = d3.scaleBand().range([ this.margin , this.width- this.margin ])
-      .domain(d3.extent(this.forecast , (d) => { return ( d.time) } ))
-      .range([ minDate , maxDate  ])*/
-
+  
       let xScale = d3.scaleTime()
       // .domain( this.forecast.map( (d) => {   d.time } ))
       .domain(d3.extent(this.forecast , (d) => {  return new Date( d.time) } ))
@@ -217,19 +223,21 @@ export class ChartComponent implements OnInit , AfterContentInit {
       svg.append("g")
         // translation en x 
         .style('transform', 'translate(' + (this.width- this.margin +15 )  + 'px,  0)')
-        .call( d3.axisRight( yScale) )
+        .call( d3.axisRight( yScale) .ticks(4) )
 
-      svg.append("g")
+   /*   svg.append("g")
         .attr("transform", "translate(0," + ( s ) + ")")
         .call( xAxis )
     
-      let barWidth = 10 ;
+  */
+
+     let barWidth = 10 ;
     
 
      let bars = svg.selectAll('.bar')
-      .data(this.forecast)
-      .enter()
-      .append("g");
+        .data(this.forecast)
+        .enter()
+        .append("g");
 
 
 
@@ -238,29 +246,25 @@ export class ChartComponent implements OnInit , AfterContentInit {
       //.enter()
       .join("rect") */
       bars.append("rect")
-      .style('fill', 'green')
-     // .style("stroke-width", 2)
-     // .style("stroke","black")
-     // .style('font-family', 'Roboto')
-     // .style('font-size', '12px')
-      .attr("x", (d) =>  { return xScale(( new Date(d.time) ) )   ; })
-      .attr("y", (d) => {   return yScale( this.getRainValid(d) ); })
-      .attr("width", barWidth )
-      .attr("height", (d) => { return this.posy +80 - yScale(this.getRainValid(d) ); });
+        .style('fill', 'green')
+        .attr("x", (d) =>  { return xScale(( new Date(d.time) ) )   ; })
+        .attr("y", (d) => {   return yScale( this.getRainValid(d) ); })
+        .attr("width", barWidth )
+        .attr("height", (d) => { return this.posy + delta  - yScale(this.getRainValid(d) ); });
     
 
       bars.append("text")
-      .text((d) =>  { 
+        .text((d) =>  { 
           let v = this.getRainValid(d) ;
           if ( v == 0 )  return "" ; else  return v;
       })
-      .attr("x", (d) => { return xScale(( new Date(d.time) ) ) +barWidth /2 ; })
-      .attr("y", (d) => { return yScale( this.getRainValid(d) ) - 5 ; })
-      .attr("font-family" , "Roboto")
-      .attr("font-size" , "11px")
-      .attr("font-weight" , "bold")
-      .attr("fill" , "black")
-      .attr("text-anchor", "middle");
+        .attr("x", (d) => { return xScale(( new Date(d.time) ) ) +barWidth /2 ; })
+        .attr("y", (d) => { return yScale( this.getRainValid(d) ) - 5 ; })
+        .attr("font-family" , "Roboto")
+        .attr("font-size" , "11px")
+        .attr("font-weight" , "bold")
+        .attr("fill" , "black")
+        .attr("text-anchor", "middle");
 
 
 
@@ -289,10 +293,10 @@ export class ChartComponent implements OnInit , AfterContentInit {
     
     
     
-    let line = d3.line()
-      .x(d => d[0] )
-      .y(d => d[1] )
-      .curve(d3.curveMonotoneX);
+      let line = d3.line()
+        .x(d => d[0] )
+        .y(d => d[1] )
+        .curve(d3.curveMonotoneX);
     
       const tpoints: [number, number][] = this.forecast.map(d => [
         scaleX(new Date(d.time)),
@@ -305,66 +309,58 @@ export class ChartComponent implements OnInit , AfterContentInit {
         scaleY(d.T_windchill),
       ]);
     
-    svg.append("g")
-      .append("path")
-      .attr('id', 'tline')
-      .style('fill', 'none')
-      .style('stroke', 'red')
-      .style('stroke-width', '2px')
-      .attr('d', line(tpoints));
+      svg.append("g")
+        .append("path")
+        .attr('id', 'tline')
+        .style('fill', 'none')
+        .style('stroke', 'red')
+        .style('stroke-width', '2px')
+        .attr('d', line(tpoints));
     
     
       svg.append("g")
-      .append("path")
-      .attr('id', 'trline')
-      .style('fill', 'none')
-      .style('stroke', 'blue')
-      .style('stroke-width', '2px')
-      .attr('d', line(trpoints));
+        .append("path")
+        .attr('id', 'trline')
+        .style('fill', 'none')
+        .style('stroke', 'blue')
+        .style('stroke-width', '2px')
+        .attr('d', line(trpoints));
     
-    
-    
-    
-    svg.selectAll(".tline")
-      .data( this.forecast )
-      .join("circle") // enter append
-      .style('fill', 'green')
-        //.attr("class", "circle-germany")
+      svg.selectAll(".tline")
+        .data( this.forecast )
+        .join("circle") // enter append
+        .style('fill', 'red')
         .attr("r", "3") // radius
-        .attr("cx", d=> scaleX(new Date(d.time)))   // center x passing through your xScale
-        .attr("cy", d=> this.scaleY(d.T))   // center y through your yScale
+        .attr("cx", d=> scaleX(new Date(d.time)))  
+        .attr("cy", d=> this.scaleY(d.T))   
     
-        svg.selectAll(".tline")
+      svg.selectAll(".tline")
         .data( this.forecast )
         .join("text") // enter append
         .style('fill', '#2b2929')
-          // .attr("font-weight" , "bold")
         .style('font-family', 'Roboto')
         .style('font-size', '12px')
-          //.attr("class", "circle-germany")
-        .attr("x", d=> scaleX(new Date(d.time)))   // center x passing through your xScale
-        .attr("y", d=> 12 +this.scaleY(d.T))   // center y through your yScale
+        .attr("x", d=> scaleX(new Date(d.time))) 
+        .attr("y", d=> 12 +this.scaleY(d.T))   
         .text( d=> this.getRoundTemp(d.T)  )  
     
-        svg.selectAll(".trline")
+      svg.selectAll(".trline")
         .data( this.forecast )
         .join("circle") // enter append
-        .style('fill', 'green')
-          //.attr("class", "circle-germany")
-          .attr("r", "3") // radius
-          .attr("cx", d=> scaleX(new Date(d.time)))   // center x passing through your xScale
-          .attr("cy", d=> this.scaleY(d.T_windchill))   // center y through your yScale
+        .style('fill', 'blue')
+        .attr("r", "3") // radius
+        .attr("cx", d=> scaleX(new Date(d.time)))  
+        .attr("cy", d=> this.scaleY(d.T_windchill))  
       
-          svg.selectAll(".trline")
-          .data( this.forecast )
-          .join("text") // enter append
-          .style('fill', '#2b2929')
-          .style('font-family', 'Roboto')
-          .style('font-size', '12px')
-            //.attr("class", "circle-germany")
-          .attr("x", d=> scaleX(new Date(d.time)))   // center x passing through your xScale
-          .attr("y", d=> 12 +this.scaleY(d.T_windchill))   // center y through your yScale
-          .text( d=> this.getRoundTemp(d.T_windchill) )  
+      svg.selectAll(".trline")
+        .data( this.forecast )
+        .join("text") // enter append
+        .style('fill', '#2b2929')
+        .style('font-family', 'Roboto')
+        .style('font-size', '12px')
+        .attr("x", d=> scaleX(new Date(d.time)))  
+        .attr("y", d=> 12 +this.scaleY(d.T_windchill)) 
+        .text( d=> this.getRoundTemp(d.T_windchill) )  
        
     }
     
@@ -402,7 +398,7 @@ export class ChartComponent implements OnInit , AfterContentInit {
     .ticks(4)
     const ya = svg.append('g')
     .attr('id', 'y-axis')
-    .style('transform', 'translate(' + 80  + 'px,  0)');
+    .style('transform', 'translate(' + 70  + 'px,  0)');
     
     ya.call(yAxis);
     
