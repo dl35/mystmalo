@@ -10,6 +10,7 @@ import { RootForecast } from '../models/MForecast';
 import { BullEcheances } from '../models/MBulletin';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { MatTabGroup } from '@angular/material/tabs';
+import { RootMarine } from '../models/Mmarine';
 
 @Component({
   selector: 'app-meteo',
@@ -26,7 +27,7 @@ export class MeteoComponent implements OnInit {
   currentDatas$ : Observable<RootForecast>;
   currentBulletin$ : Observable<BullEcheances>;
   currentEphemeride$: Observable<RootEphe>;
-
+  currentMarine$ : Observable<RootMarine>;
   ismobile = false;
 
   index = 0 ;
@@ -59,7 +60,7 @@ export class MeteoComponent implements OnInit {
    next(){
 
       this.index = this.index + 1;
-      if( this.index > 2 ) {
+      if( this.index > 3 ) {
         this.index = 0 ;
       }
 
@@ -72,6 +73,7 @@ export class MeteoComponent implements OnInit {
 
     this.currentEphemeride$ = this.meteoServ.getEphemeride().pipe( shareReplay(1) );
     this.currentBulletin$ = this.meteoServ.getBulletin().pipe( shareReplay(1) );
+    this.currentMarine$ = this.meteoServ.getMarine().pipe( shareReplay(1) );
   }
 
 }

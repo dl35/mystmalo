@@ -12,6 +12,7 @@
 
   <mat-tab-group #tabs mat-align-tabs="center" (selectedIndexChange)="toNext($event)" >
     <mat-tab label="Prévisions"><app-days [previsions]="currentDatas$ | async " ></app-days></mat-tab>
+    <mat-tab label="Marine"><app-marine  [marine]="currentMarine$ | async"  ></app-marine> </mat-tab>
     <mat-tab label="Bulletin"><app-bulletin  [bulletin]="currentBulletin$ | async"  ></app-bulletin> </mat-tab>
     <mat-tab label="Ephémérides"><app-ephemeride  [ephe]="currentEphemeride$ | async"  ></app-ephemeride>
     </mat-tab>

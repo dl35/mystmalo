@@ -1,5 +1,5 @@
 import { AppComponent } from './../../app.component';
-import { AfterContentInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Forecast } from 'src/app/models/MForecast';
 import * as d3 from 'd3';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
@@ -37,9 +37,10 @@ export class ChartComponent implements OnInit , AfterContentInit {
   private myChart?: ElementRef;
 
   resizeObservable$: Observable<Event>;
-  resizeSubscription$: Subscription;
+ // resizeSubscription$: Subscription;
 
   isMobile = false;
+ 
 
   constructor(public breakpointObserver: BreakpointObserver) { }
 
@@ -55,11 +56,13 @@ export class ChartComponent implements OnInit , AfterContentInit {
       if (state.breakpoints[Breakpoints.XSmall] || state.breakpoints[Breakpoints.Small] ) {
     
         this.isMobile = true ;
+        
        } else {
         this.isMobile = false ;
+        
         }   
   
-      if( this.forecast )  
+  
          this.draw() ;
  
 
@@ -68,7 +71,8 @@ export class ChartComponent implements OnInit , AfterContentInit {
 
   }
 
-
+  
+  
   ngOnInit(): void {
 
 
@@ -79,13 +83,19 @@ export class ChartComponent implements OnInit , AfterContentInit {
 
   draw(){
 
+      if ( !this.forecast ) return ;
+
+
+  
+
     this.posy = 14 ;
 
     this.width = this.myChart.nativeElement.clientWidth;
     this.height =  window.innerHeight ;// this.myChart.nativeElement.clientHeight;
+   // this.height =  this.myChart.nativeElement.clientHeight;
     
   
-   d3.select(this.myChart?.nativeElement).selectAll("svg").remove();
+     d3.select(this.myChart?.nativeElement).selectAll("svg").remove();
   //  this.width =  600 ;
   //  this.height = 500 ;
 
@@ -93,15 +103,18 @@ export class ChartComponent implements OnInit , AfterContentInit {
 
     if( this.isMobile ) {
      
-      this.width = window.innerHeight ; 
-      this.height =  window.innerHeight ; 
-  //  this.width =  600 ;
-  //  this.height = 600 ;// this.myChart.nativeElement.clientWidth;
+  //    this.width = window.innerHeight ; 
+  //    this.height =  window.innerHeight ; 
+    this.width =  900 ;
+    this.height = 900 ;
 
 
 
 
     }
+
+
+   
 
     const svg = d3.select(this.myChart?.nativeElement)
     .append("svg")
@@ -110,22 +123,23 @@ export class ChartComponent implements OnInit , AfterContentInit {
     .attr('height','100%' )
     .attr('width', '100%' )
     .attr("preserveAspectRatio", "xMinYMin meet")
+  
   //  .classed("chart",true)
 
- /*   if( this.isMobile ) {
-     svg.attr('transform', 'rotate(90)')
+    if( this.isMobile ) {
+   //  svg.attr('transform', 'rotate(90 0 0)')
      }
-*/
 
+/*
     svg.append("rect")
-    .style('fill', 'none')
-    .style('stroke', 'red')
+   .style('fill', 'none')
+   .style('stroke', 'red')
     .style('stroke-width', '2px')
     .attr("x", 0 ) 
     .attr("y", 0 )  
     .attr("width", this.width )
     .attr("height", this.height )
-
+*/
    /* let aspect = this.width / this.height;
 
     let vchart = d3.select('#chart');
@@ -373,9 +387,7 @@ export class ChartComponent implements OnInit , AfterContentInit {
 
     getScaleY(  delta ) {
 
-      console.log('posy' ,  this.posy );
-
-
+   
       let scaleY = d3.scaleLinear()
       // .domain(d3.extent( this.forecast,  (d)  =>  { return  d.T  }))
        .domain([ 
@@ -523,9 +535,9 @@ export class ChartComponent implements OnInit , AfterContentInit {
     
     
             let size = 38 ;
-            if ( this.forecast.length  > 12 && this.isMobile ) {
-              size = 28 ;
-            }
+       /*     if ( this.forecast.length  > 12 && this.isMobile ) {
+              size = 38 ;
+            }*/
 
           const layer = svg.append("g").
                    attr("id","reg.picto")
@@ -541,8 +553,8 @@ export class ChartComponent implements OnInit , AfterContentInit {
           .attr("transform" , 'translate(0,0)' )
           .append("circle") 
           .style('fill', 'none')
-          .style('stroke', 'gray')
-          .style('stroke-width', '1px')
+        //  .style('stroke', 'gray')
+        //  .style('stroke-width', '1px')
           .attr("cx", size /2  ) 
           .attr("cy", size /2  )  
           .attr("r", size / 2  )

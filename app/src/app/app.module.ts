@@ -28,6 +28,7 @@ import { HoursComponent } from './meteo/hours/hours.component';
 import { DaysComponent } from './meteo/days/days.component';
 import { ChartComponent } from './meteo/chart/chart.component';
 import { MoonComponent } from './meteo/moon/moon.component';
+import { MarineComponent } from './meteo/marine/marine.component';
 
 
 
@@ -50,7 +51,8 @@ import { MoonComponent } from './meteo/moon/moon.component';
     HoursComponent,
     DaysComponent,
     ChartComponent,
-    MoonComponent
+    MoonComponent,
+    MarineComponent
     
   ],
   imports: [
