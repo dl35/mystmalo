@@ -13,7 +13,8 @@ export class VideoService {
   constructor(private http: HttpClient) { }
 
   getWebcam() {
-    return this.http.get<any>( this.uwebcam  );
+    const salt = (new Date()).getTime();
+    return this.http.get<any>( `${this.uwebcam}?${salt}`  );
   }
 
   saveWebcam(datas: Array<any>) {

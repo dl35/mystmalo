@@ -1,0 +1,59 @@
+.chart {
+    width: 900px;
+    height: 900px;
+   
+    display: block;
+    background-color: rgb(134, 180, 211);
+      overflow: scroll;
+  }
+
+
+  .ff_text {
+
+    fill:black;
+    font-family: Roboto;
+    font-size:12px;
+    font-weight: bold;
+    text-anchor:middle;
+    dominant-baseline:central;
+   
+  }
+  
+  .ff_legend {
+    _text-anchor:left;
+    
+    fill:blue;
+  /*  font-family: Roboto;
+    font-size:12px;
+    font-weight: bold;
+    text-anchor:middle;
+    dominant-baseline:central;*/
+   
+  }
+  
+  .fx {
+    fill:white;
+    font-family: Roboto;
+    font-size:12px;
+    font-weight: bold;
+    text-anchor:middle;
+    dominant-baseline:central;
+  }
+  
+  .fx_circle {
+    fill:red;
+    stroke: red;
+    stroke-width: 1px;
+  }
+  
+  
+  
+  .nebul_arc {
+  fill: rgb(96, 107, 209);
+  }
+  
+  .nebul_circle {
+  fill : rgba(174, 224, 236, 0.603);
+  stroke-width: 1px;
+  stroke :rgb(96, 107, 209);
+  }

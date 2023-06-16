@@ -71,8 +71,8 @@ export class MeteoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.currentEphemeride$ = this.meteoServ.getEphemeride().pipe( shareReplay(1) );
     this.currentBulletin$ = this.meteoServ.getBulletin().pipe( shareReplay(1) );
+    this.currentEphemeride$ = this.meteoServ.getEphemeride().pipe( shareReplay(1) );
     this.currentMarine$ = this.meteoServ.getMarine().pipe( shareReplay(1) );
   }
 

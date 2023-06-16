@@ -1,0 +1,13 @@
+[ {
+    "day":"2023-06-05",
+    "tide":[
+        {"tide":"tide.low","hour":"03:16","high":"1.90","coef":"---"},
+        {"tide":"tide.high","hour":"08:41","high":"11.65","coef":"87"},
+        {"tide":"tide.low","hour":"15:37","high":"2.06","coef":"---"},
+        {"tide":"tide.high","hour":"21:01","high":"11.89","coef":"88"}
+        ]
+    }
+
+
+]
+

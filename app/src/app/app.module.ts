@@ -29,6 +29,8 @@ import { DaysComponent } from './meteo/days/days.component';
 import { ChartComponent } from './meteo/chart/chart.component';
 import { MoonComponent } from './meteo/moon/moon.component';
 import { MarineComponent } from './meteo/marine/marine.component';
+import { PaquebotsComponent } from './paquebots/paquebots.component';
+import { MouillageComponent } from './mouillage/mouillage.component';
 
 
 
@@ -52,7 +54,9 @@ import { MarineComponent } from './meteo/marine/marine.component';
     DaysComponent,
     ChartComponent,
     MoonComponent,
-    MarineComponent
+    MarineComponent,
+    PaquebotsComponent,
+    MouillageComponent
     
   ],
   imports: [

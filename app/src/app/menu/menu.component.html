@@ -21,9 +21,13 @@
           
             <button mat-raised-button color="primary"  routerLink="/agenda" ><mat-icon>view_agenda</mat-icon>&nbsp;Agenda</button>
             <button mat-raised-button color="primary"  routerLink="/maree" ><mat-icon>waves</mat-icon>&nbsp;Marées</button>
+            <button mat-raised-button color="primary"  routerLink="/mouillage" ><mat-icon>phishing</mat-icon>&nbsp;Mouillage</button>
             <button mat-raised-button color="primary"  routerLink="/port" ><mat-icon>directions_boat</mat-icon>&nbsp;Port</button>
+            
             <button mat-raised-button color="primary"  routerLink="/meteo" ><mat-icon>wb_sunny</mat-icon>&nbsp;Météo</button>
+          
             <button mat-raised-button color="primary"  routerLink="/webcam" ><mat-icon>linked_camera</mat-icon>&nbsp;Webcam</button>
+            <button mat-raised-button color="primary"  routerLink="/paquebots" ><mat-icon>sailing</mat-icon>&nbsp;Paquebots</button>
             <button mat-raised-button color="primary" ><mat-icon>info</mat-icon>&nbsp;ver: {{version}}</button>
           
           </div>
@@ -39,9 +43,12 @@
                
                 <button mat-button color="primary"  routerLink="/agenda" (click)="sidenav.toggle()" ><mat-icon>view_agenda</mat-icon>&nbsp;Agenda</button>
                 <button mat-button color="primary"  routerLink="/maree" (click)="sidenav.toggle()" ><mat-icon>waves</mat-icon>&nbsp;Marées</button>
+                <button mat-button color="primary"  routerLink="/mouillage" (click)="sidenav.toggle()"><mat-icon>phishing</mat-icon>&nbsp;Mouillage</button>
                 <button mat-button color="primary"  routerLink="/port" (click)="sidenav.toggle()" ><mat-icon>directions_boat</mat-icon>&nbsp;Port</button>
                 <button mat-button color="primary"  routerLink="/meteo"(click)="sidenav.toggle()" ><mat-icon>wb_sunny</mat-icon>&nbsp;Météo</button>
+                
                 <button mat-button color="primary"  routerLink="/webcam" (click)="sidenav.toggle()" ><mat-icon>linked_camera</mat-icon>&nbsp;Webcam</button>
+                <button mat-button color="primary"  routerLink="/paquebots" (click)="sidenav.toggle()" ><mat-icon>sailing</mat-icon>&nbsp;Paquebots</button>
                 <button mat-raised-button color="primary" ><mat-icon>info</mat-icon>&nbsp;ver: {{version}}</button>
             </div>
           </mat-sidenav>

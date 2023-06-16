@@ -1,0 +1,52 @@
+<div style="margin:0 auto;text-align: center;">
+
+
+
+    <mat-button-toggle-group  style="margin-top: 4px;"         name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle value="last"  (click)="last()" > <mat-icon>navigate_before</mat-icon></mat-button-toggle>
+        <mat-button-toggle value="today" (click)="init()"  >{{ this.getCurrent() }}</mat-button-toggle>
+        <mat-button-toggle value="next" (click)="next()" > <mat-icon>navigate_next</mat-icon></mat-button-toggle>
+      </mat-button-toggle-group>
+
+<div  *ngIf="datasFiltered$ | async as item"  >
+
+<p><span><mat-icon>difference</mat-icon>Marnage: {{ item.marnage}} m</span>
+&nbsp;<mat-icon>flare</mat-icon><span>Sonde: {{ item.sonde}}</span></p>
+<p> <span><mat-icon>water</mat-icon>Tirant d'eau: {{ item.tirant_eau}} m</span>
+&nbsp;<mat-icon>square_foot</mat-icon><span>Pied de pilote: {{ item.pied_de_pilote}} m</span></p>
+
+
+<table *ngFor="let seuil of item.seuils" style="text-align:center;margin-left:auto;margin-right:auto;width:100px;" >
+<tr>
+<td></td>
+<td><button mat-flat-button style="color:white;background-color:green">
+    {{seuil.high }} pm
+  </button></td>
+<td></td>
+</tr>
+<tr>
+<td><button mat-flat-button style="color:white;background-color:green" >
+    {{seuil.h1 }}<mat-icon>north_east</mat-icon>
+</button></td>
+<td></td>
+<td><button mat-flat-button style="color:white;background-color:green" >
+    <mat-icon>south_east</mat-icon>{{seuil.h2}}
+  </button>
+</td>
+</tr>
+<tr>
+ 
+  <td><button mat-flat-button color="warn"  >
+    {{seuil.low }} bm
+    </button></td>
+  <td></td> <td></td>
+  </tr>
+
+</table>
+
+
+
+
+</div>
+     
+  

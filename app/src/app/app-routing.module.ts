@@ -1,3 +1,4 @@
+import { PaquebotsComponent } from './paquebots/paquebots.component';
 import { WebcamManageComponent } from './webcam-manage/webcam-manage.component';
 import { WebcamComponent } from './webcam/webcam.component';
 import { NgModule, LOCALE_ID } from '@angular/core';
@@ -11,6 +12,7 @@ import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { MouillageComponent } from './mouillage/mouillage.component';
 // the second parameter 'fr' is optional
 registerLocaleData(localeFr, 'fr');
 export const routes: Routes = [
@@ -22,10 +24,12 @@ export const routes: Routes = [
         { path: 'agenda',  component: AgendaComponent },
         { path: 'maree',  component: MareeComponent },
         { path: 'meteo',  component: MeteoComponent },
+        { path: 'mouillage',  component: MouillageComponent },
         { path: 'port',  component: PortComponent },
         { path: 'webcam', component: WebcamComponent , children:[
         { path: 'm',  component: WebcamManageComponent }
         ]},
+        { path: 'paquebots',  component: PaquebotsComponent },
     
         { path: '', component: HomeComponent }
       ] ,

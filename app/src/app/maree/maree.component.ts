@@ -66,7 +66,7 @@ export class MareeComponent implements OnInit {
   }
 
 public getCurrent(): string {
-  return this.current.format('YYYY-MM-DD HH:mm') ;
+  return this.current.format('DD MMMM YYYY') ;
 }
 
 public getCurrentDay(): string {

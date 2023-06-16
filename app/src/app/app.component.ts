@@ -9,6 +9,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class AppComponent implements OnInit {
   title = 'app';
   private path: string = "assets/pictos";
+
   constructor(private domSanitizer: DomSanitizer, private matIconRegistry: MatIconRegistry) {  
     this.matIconRegistry.addSvgIcon("E", this.setPath(`${this.path}/E.svg`) ); 
     this.matIconRegistry.addSvgIcon("ENE", this.setPath(`${this.path}/ENE.svg`)); 
@@ -26,6 +27,9 @@ export class AppComponent implements OnInit {
     this.matIconRegistry.addSvgIcon("SO", this.setPath(`${this.path}/SO.svg`)); 
     this.matIconRegistry.addSvgIcon("SSO", this.setPath(`${this.path}/SSO.svg`)); 
     this.matIconRegistry.addSvgIcon("Variable", this.setPath(`${this.path}/Variable.svg`)); 
+
+
+
 
 
     } 
