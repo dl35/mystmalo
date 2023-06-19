@@ -40,7 +40,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true, relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   providers: [ { provide: LOCALE_ID, useValue: 'fr-FR' }],
   exports: [RouterModule]
 })

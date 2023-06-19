@@ -1,5 +1,5 @@
 <div class="main-div"  *ngIf="datas$ | async as datas"   >
-    <mat-card  class="actu-card"  >
+    <mat-card  appearance="outlined"  class="actu-card"  >
         <mat-card-header>
         <div  mat-card-avatar style="background-image:url('assets/dstmalo.jpg') ; background-size:cover"   >
         </div>
@@ -14,7 +14,7 @@
       </mat-card>
 
 
-<mat-card *ngFor="let item of datas?.items"  class="actu-card"  >
+<mat-card appearance="outlined" *ngFor="let item of datas?.items"  class="actu-card"  >
     <mat-card-header>
       <div  mat-card-avatar style="background-image:url('assets/dstmalo.jpg') ; background-size:cover"   ></div>
       <mat-card-title>{{item.title}}</mat-card-title>

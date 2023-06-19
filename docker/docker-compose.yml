@@ -6,24 +6,19 @@ services:
     build:
       context: .
     #network_mode: "host"
-    container_name: my-web-container
-    image: ng/node-angular-cli:1.0
-    entrypoint: /bin/sh
+    container_name: "${CONTAINER_NAME}:${TAG}"
+    image: "${IMAGE_NAME}:${TAG}"
     stdin_open: true
     tty: true
-    user: ${CURRENT_UID}
+    user: "${UID}:${GID}"
     environment:
-       -  UID=1000
-       -  GID=1000
+        - CONTAINER_NAME=${CONTAINER_NAME}:${TAG}
+       
     volumes: 
       - ../app:/app
+      
     ports:
       - 4200:4200
-   # networks:
-   #   - docker_backend
       
-#networks:
- # docker_backend:
- #   external: true      
       
         

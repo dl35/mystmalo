@@ -1,5 +1,24 @@
-.dwcam  {
-    margin-top: 10px;
+
+
+.flexrow{
+   
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: space-between;
+align-items: baseline;
+align-content: space-around;
+
 }
 
 
+.flexcol{
+   
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    align-content: space-around;
+    
+    }

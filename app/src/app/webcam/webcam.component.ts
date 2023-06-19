@@ -25,32 +25,25 @@ export class WebcamComponent implements OnInit {
      "https://www.skaping.com/saint-malo/port-des-sablons",
      "https://www.skaping.com/saint-lunaire/pointe-du-decolle"] ;
 
-     
+     isMobile = false;
 
   constructor(breakpointObserver: BreakpointObserver,private vserv: VideoService,private sanitizer: DomSanitizer) {
 
     breakpointObserver.observe([
       Breakpoints.XSmall,
       Breakpoints.Small,
-      Breakpoints.Medium,
-      Breakpoints.Large,
-      Breakpoints.XLarge
   ]).subscribe((state: BreakpointState) => {
     if (state.breakpoints[Breakpoints.XSmall]) {
       this.width = 320 ; this.height = 320 ;
-    }
-    if (state.breakpoints[Breakpoints.Small])  {
+      this.isMobile = true ;
+    } else  if (state.breakpoints[Breakpoints.Small])  {
       this.width = 350 ; this.height = 350 ;
-    }
-    if (state.breakpoints[Breakpoints.Medium]) {
+      this.isMobile = true ;
+    } else  {
       this.width = 400 ; this.height = 400 ;
+      this.isMobile = false;
     }
-    if (state.breakpoints[Breakpoints.Large])  {
-      this.width = 400 ; this.height = 400 ;
-    }
-    if (state.breakpoints[Breakpoints.XLarge]) {
-      this.width = 400 ; this.height = 400 ;
-    }
+   
 });
 
   }

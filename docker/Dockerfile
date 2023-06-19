@@ -1,12 +1,13 @@
-FROM node:17-alpine as node-angular-cli
+FROM node:18-alpine3.16 as node-angular-cli
 
-RUN apk --no-cache add shadow su-exec git
 
-RUN set -xe
-RUN mkdir /app
-RUN chgrp node /app
-RUN chown node /app
+RUN sed -i 's/https/http/' /etc/apk/repositories
+RUN apk --no-cache add  bash shadow su-exec git
 
+ENV CONTAINER_NAME="docker"
+
+ADD prompt.sh /etc/profile.d/prompt.sh
+ADD aliases.sh /etc/profile.d/aliases.sh
 
 RUN set -xe;\
     npm uninstall -g @angular/cli;\
@@ -16,17 +17,15 @@ RUN set -xe;\
 
 
 
+WORKDIR /app
+EXPOSE 4200
+
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 
-
-WORKDIR /app
-EXPOSE 4200
-
-
-CMD ["/bin/sh", "-l"]
+CMD ["bash", "-l"]
 
 
 

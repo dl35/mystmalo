@@ -1,8 +1,9 @@
 <div style="height: 100vh;" > 
     <mat-toolbar color="primary"  >
-        <div fxFlex="100"  fxLayout="row"  fxLayoutAlign="start center" >
+        <div>
     
-            <div fxHide.gt-sm  fxLayoutAlign="space-between  center" >
+      
+            <div *ngIf="mobile" >
                 <button mat-icon-button (click)="sidenav.toggle()">
                   <mat-icon>menu</mat-icon>
                 </button>
@@ -14,8 +15,8 @@
                 </button>
               </div>
     
-    
-            <div fxFlex="60" fxHide.sm fxHide.lt-sm  fxLayoutAlign="start center" fxLayoutGap="5px"  >
+
+            <div  *ngIf="!mobile">
           
             <button  mat-raised-button color="primary"  routerLink="/actualites" ><mat-icon>chrome_reader_mode</mat-icon>&nbsp;Actualités</button>
           
@@ -35,9 +36,14 @@
           </div>
       
       </mat-toolbar>
-      <mat-sidenav-container  fxFlexFill  >
+      <mat-sidenav-container style="display: flex;flex-direction: column;"   >
           <mat-sidenav color="primary"  #sidenav  mode="over" opened="false"    >
-            <div fxLayout="column" fxFlex fxLayoutAlign="start start" >
+            <div style="display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: baseline;
+            align-content: space-around;" >
                
                 <button   mat-button color="primary"  routerLink="/actualites" (click)="sidenav.toggle()" ><mat-icon>chrome_reader_mode</mat-icon>&nbsp;Actualités</button> 
                
@@ -52,7 +58,8 @@
                 <button mat-raised-button color="primary" ><mat-icon>info</mat-icon>&nbsp;ver: {{version}}</button>
             </div>
           </mat-sidenav>
-          <mat-sidenav-content fxFlexFill  >
+          <mat-sidenav-content style="margin: 0 auto ;height: 100vh;" >
+             <br><br>
               <router-outlet></router-outlet>
           </mat-sidenav-content>
         </mat-sidenav-container>

@@ -33,15 +33,13 @@ export class MareeComponent implements OnInit {
   ngOnInit(): void {
 
      this.breakpointObserver.observe([
-      Breakpoints.Medium,
-      Breakpoints.Large,
-      Breakpoints.XLarge,
+      Breakpoints.Small,  Breakpoints.XSmall    , Breakpoints.Tablet
     ]).subscribe(
       (state: BreakpointState ) => {
        if ( state.matches ) {
-          this.ismobile = false;
-       } else {
           this.ismobile = true;
+       } else {
+          this.ismobile = false;
        }
       }
 

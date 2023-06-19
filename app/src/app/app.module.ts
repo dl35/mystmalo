@@ -2,7 +2,6 @@ import { WebcamManageComponent } from './webcam-manage/webcam-manage.component';
 import { BrowserModule} from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -67,7 +66,6 @@ import { MouillageComponent } from './mouillage/mouillage.component';
     LayoutModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FlexLayoutModule,
     YouTubePlayerModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })

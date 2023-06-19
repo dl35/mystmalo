@@ -1,6 +1,6 @@
 import { Subject, takeUntil } from 'rxjs';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray  } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray  } from '@angular/forms';
 import { Router } from '@angular/router';
 import { VideoService } from '../services/video.service';
 
@@ -12,12 +12,12 @@ import { VideoService } from '../services/video.service';
 })
 export class WebcamManageComponent implements OnInit,OnDestroy {
   
-  fg :FormGroup;
+  fg :UntypedFormGroup;
   subject$ = new Subject();
   mess = { success: true , message: '' }
   show = false;
 
-  constructor(private svideo: VideoService,  private fb: FormBuilder,private router: Router) { }
+  constructor(private svideo: VideoService,  private fb: UntypedFormBuilder,private router: Router) { }
   
   
   ngOnDestroy(): void {
@@ -48,14 +48,14 @@ export class WebcamManageComponent implements OnInit,OnDestroy {
 
   add():void {
   
-    let control = this.fg.get("params") as FormArray ;
+    let control = this.fg.get("params") as UntypedFormArray ;
     control.push(this.fb.control( '' , [Validators.required]) ) ;
   
   }
 
   delete(i):void {
   
-    let control = this.fg.get("params") as FormArray ;
+    let control = this.fg.get("params") as UntypedFormArray ;
 
     control.removeAt(i);
   

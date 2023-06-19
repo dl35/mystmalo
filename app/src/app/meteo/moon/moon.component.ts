@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
-  encapsulation! : ViewEncapsulation.None,
+  encapsulation : ViewEncapsulation.None,
   selector: 'app-moon',
   templateUrl: './moon.component.html',
   styleUrls: ['./moon.component.css']

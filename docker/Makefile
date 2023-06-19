@@ -1,5 +1,5 @@
-UID:=$(shell id -u)
-GID:=$(shell id -g)
+export UID:=$(shell id -u)
+export GID:=$(shell id -g)
 CC:=docker-compose
 
 
@@ -26,7 +26,5 @@ clean:
 	docker-compose down --rmi local
 
 dev: 
-	CURRENT_UID=1000:1000 docker-compose run --rm  --service-ports angular
+	$(CC) run --rm  --service-ports angular
 
-up: 
-	CURRENT_UID=1000:1000 docker-compose run --rm  --service-ports angular  
